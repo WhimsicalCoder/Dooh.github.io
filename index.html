@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="initial-scale=1,
+		maximum-scale=1, user-scalable=0" name="viewport" />
+<meta name="viewport" content="width=device-width" />
+
+<!--Datatable plugin CSS file -->
+<link rel="stylesheet" href=
+"https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+<!--jQuery library file -->
+<script type="text/javascript" src=
+	"https://code.jquery.com/jquery-3.5.1.js">
+</script>
+
+<!--Datatable plugin JS library file -->
+<script type="text/javascript" src=
+"https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+</script>
+
+<style>
+	td {
+	text-align: center;
+	}
+</style>
+</head>
+
+<body>
+<h2>
+	OOH Creative Search 🔥
+</h2>
+
+<!--HTML tables with test data-->
+<table id="tableID" class="display"
+	style="width: 100%">
+	<thead>
+	<tr>
+		<th>Publisher</th>
+		<th>Creative Size</th>
+		<th>Type</th>
+		<th>Note</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Volta</td>
+		<td>1920 x 1080</td>
+		<td>Digital EV</td>
+		
+		<td>N/A</td>
+	</tr>
+	<tr>
+		<td>CCO</td>
+		<td>400 x 1400</td>
+		<td>Digital Bulletin</td>
+		<td>N/A</td>
+	</tr>
+	<tr>
+		<td>CCO</td>
+		<td>400 x 840</td>
+
+		<td>Digital Poster</td>
+		<td>N/A</td>
+	</tr>
+	<tr>
+		<td>CCO</td>
+		<td>1920 x 1080</td>
+		<td>Digital Shelter</td>
+		<td>N/A</td>
+	</tr>
+	<tr>
+		<td>Firefly</td>
+		<td>1920 x 1080</td>
+		<td>Taxi Top</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Orange Barrel</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Zoom</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Adams Outdoor</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Lamar</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Outfront</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+
+	<tr>
+		<td>Alfi</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	<tr>
+		<td>Uber</td>
+		<td>1920 x 1080</td>
+		<td>Billboard</td>
+		<td>Test Data</td>
+	</tr>
+	</tbody>
+</table>
+<br />
+
+<script>
+
+	/* Initialization of datatables */
+	$(document).ready(function () {
+
+		// Paging and other information are
+		// disabled if required, set to true
+		var myTable = $("#tableID").DataTable({
+		paging: false,
+		searching: true,
+		info: false,
+		});
+
+		// 2d array is converted to 1D array
+		// structure the actions are
+		// implemented on EACH column
+		myTable
+		.columns()
+		.flatten()
+		.each(function (colID) {
+
+			// Create the select list in the
+			// header column header
+			// On change of the list values,
+			// perform search operation
+			var mySelectList = $("<select />")
+			.appendTo(myTable.column(colID).header())
+			.on("change", function () {
+				myTable.column(colID).search($(this).val());
+
+				// update the changes using draw() method
+				myTable.column(colID).draw();
+			});
+
+			// Get the search cached data for the
+			// first column add to the select list
+			// using append() method
+			// sort the data to display to user
+			// all steps are done for EACH column
+			myTable
+			.column(colID)
+			.cache("search")
+			.sort()
+			.each(function (param) {
+				mySelectList.append(
+				$('<option value="' + param + '">'
+					+ param + "</option>")
+				);
+			});
+		});
+	});
+</script>
+</body>
+
+</html>
